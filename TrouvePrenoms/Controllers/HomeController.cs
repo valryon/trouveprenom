@@ -2,10 +2,8 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.md', which is part of this source code package
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TrouvePrenoms.Models;
 using TrouvePrenoms.ViewModels;
@@ -23,7 +21,7 @@ namespace TrouvePrenoms.Controllers
     {
       try
       {
-        DateTime date = DateTime.Parse(dateString);
+        DateTime date = DateTime.ParseExact(dateString, PrenomsViewModel.DATE_FORMAT, PrenomsViewModel.DATE_CULTURE);
         return View("Index", GetData(date));
       }
       catch (Exception)
@@ -39,7 +37,7 @@ namespace TrouvePrenoms.Controllers
         Date = date
       };
 
-      int dateAsSeed = Int32.Parse(date.ToString("yyyyMMdd"));
+      int dateAsSeed = Int32.Parse(date.ToString(PrenomsViewModel.DATE_FORMAT));
       Random r = new Random(dateAsSeed);
 
       // Pick 5 girls & 5 boys

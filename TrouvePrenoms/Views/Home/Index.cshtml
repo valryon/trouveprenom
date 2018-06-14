@@ -17,9 +17,11 @@
     }
 </li>
 
-<p>@Html.ActionLink("<-", "CustomDate", "Home", new { dateString = Model.Date.AddDays(-1).ToShortDateString() }) </p>
-<p>@Model.Date.ToShortDateString()</p>
-@if (Model.IsTodayOrFuture == false)
-{
-<p>@Html.ActionLink("->", "CustomDate", "Home", new { dateString = Model.Date.AddDays(+1).ToShortDateString() }) </p>
-}
+<p>
+    @Html.ActionLink("<-", "CustomDate", "Home", new { dateString = Model.PreviousDateString }) 
+    @Model.DateString
+    @if (Model.IsTodayOrFuture == false)
+    {
+        @Html.ActionLink("->", "CustomDate", "Home", new { dateString = Model.NextDateString })
+    }
+</p>
