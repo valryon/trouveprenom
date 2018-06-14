@@ -13,12 +13,18 @@
     </environment>
 </head>
 <body>
+    <header>
+        <h1>Trouve Prénom</h1>
+        <p>Le site simple et sans fioritures pour aider les futurs parents à trouver un prénom.</p>
+        <p>10 prénoms par jour : 5 garçons / 5 filles</p>
+    </header>
     <main>
         @RenderBody()
     </main>
     <hr />
     <footer>
-        <p>&copy; 2018 - TrouvePrenoms</p>
+        <p>&copy; 2018 - Damien Mayance</p>
+        <p><a href="(https://www.insee.fr/fr/statistiques/2540004">Données fournies par l'INSEE</a>. <a href="https://github.com/valryon/trouveprenom">Ce site est open source</a>.</p>
     </footer>
 
     @RenderSection("Scripts", required: false)

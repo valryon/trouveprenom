@@ -3,12 +3,14 @@
 // file 'LICENSE.md', which is part of this source code package
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TrouvePrenoms.Models;
 
 namespace TrouvePrenoms
 {
@@ -28,9 +30,9 @@ namespace TrouvePrenoms
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment hostingEnvironment)
     {
-      if (env.IsDevelopment())
+      if (hostingEnvironment.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
         app.UseBrowserLink();
@@ -48,6 +50,10 @@ namespace TrouvePrenoms
                   name: "default",
                   template: "{controller=Home}/{action=Index}/{id?}");
       });
+
+      // Load data once on startup
+      string dataFile = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "nat2016.txt");
+      PrenomsData.Initialize(dataFile);
     }
   }
 }

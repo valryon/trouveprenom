@@ -1,1 +1,25 @@
-﻿Coucou
+﻿@model PrenomsViewModel
+
+<h2>Garçon</h2>
+
+<li>
+    @foreach (Prenom g in Model.Boys)
+    {
+        @Html.Partial("_PrenomWidget", g)
+    }
+</li>
+
+<h2>Fille</h2>
+<li>
+    @foreach (Prenom f in Model.Girls)
+    {
+        @Html.Partial("_PrenomWidget", f)
+    }
+</li>
+
+<p>@Html.ActionLink("<-", "CustomDate", "Home", new { dateString = Model.Date.AddDays(-1).ToShortDateString() }) </p>
+<p>@Model.Date.ToShortDateString()</p>
+@if (Model.IsTodayOrFuture == false)
+{
+<p>@Html.ActionLink("->", "CustomDate", "Home", new { dateString = Model.Date.AddDays(+1).ToShortDateString() }) </p>
+}
