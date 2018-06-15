@@ -20,5 +20,38 @@ namespace TrouvePrenoms.Models
     {
       return Value;
     }
+
+    public string DataKeys
+    {
+      get
+      {
+        string s = "[";
+
+        foreach (var c in Counts.Keys)
+        {
+          s += "\"" + c + "\",";
+        }
+        s = s.Remove(s.Length - 1); // Remove last comma
+        s += "]";
+
+        return s;
+      }
+    }
+    public string DataValues
+    {
+      get
+      {
+        string s = "[";
+
+        foreach (var c in Counts.Values)
+        {
+          s += c + ",";
+        }
+        s = s.Remove(s.Length - 1); // Remove last comma
+        s += "]";
+
+        return s;
+      }
+    }
   }
 }

@@ -26,7 +26,7 @@ namespace TrouvePrenoms.Models
     public static void Initialize(string file)
     {
       instance = new PrenomsData();
-      instance.LoadData(file);      
+      instance.LoadData(file);
     }
 
     private void LoadData(string prenomsFile)
@@ -60,6 +60,14 @@ namespace TrouvePrenoms.Models
 
               if (collection.ContainsKey(p.Value) == false)
               {
+                for (int i = 1900; i < DateTime.Now.Year; i+=5)
+                {
+                  if (p.Counts.ContainsKey(i) == false)
+                  {
+                    p.Counts.Add(i, 0);
+                  }
+                }
+
                 collection.Add(p.Value, p);
               }
               else
@@ -86,6 +94,16 @@ namespace TrouvePrenoms.Models
           n++;
         }
       }
+
+      // Sort by key
+      foreach (var g in boys.Values)
+      {
+        g.Counts = g.Counts.OrderBy(key => key.Key).ToDictionary((keyItem) => keyItem.Key, (valueItem) => valueItem.Value);
+      }
+      foreach (var f in girls.Values)
+      {
+        f.Counts = f.Counts.OrderBy(key => key.Key).ToDictionary((keyItem) => keyItem.Key, (valueItem) => valueItem.Value);
+      }
     }
 
     /// <summary>
@@ -93,7 +111,7 @@ namespace TrouvePrenoms.Models
     /// </summary>
     /// <param name="line"></param>
     /// <returns></returns>
-    private static Prenom Parse( string line)
+    private static Prenom Parse(string line)
     {
       Prenom p = new Prenom();
 

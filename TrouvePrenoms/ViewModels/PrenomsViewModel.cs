@@ -9,6 +9,8 @@ namespace TrouvePrenoms.ViewModels
 {
   public class PrenomsViewModel
   {
+    public const int PRENOMS_COUNT = 6;
+
     public static string DATE_FORMAT = "yyyyMMdd";
     public static CultureInfo DATE_CULTURE = CultureInfo.GetCultureInfo("fr-FR");
 

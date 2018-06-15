@@ -12,6 +12,7 @@ namespace TrouvePrenoms.Controllers
 {
   public class HomeController : Controller
   {
+
     public IActionResult Index()
     {
       return View(GetData(DateTime.Now));
@@ -41,8 +42,8 @@ namespace TrouvePrenoms.Controllers
       Random r = new Random(dateAsSeed);
 
       // Pick 5 girls & 5 boys
-      vm.Boys = PrenomsData.Get(Prenom.BOY).OrderBy(p => r.NextDouble()).Take(5).ToArray();
-      vm.Girls = PrenomsData.Get(Prenom.GIRL).OrderBy(p => r.NextDouble()).Take(5).ToArray();
+      vm.Boys = PrenomsData.Get(Prenom.BOY).OrderBy(p => r.NextDouble()).Take(PrenomsViewModel.PRENOMS_COUNT).ToArray();
+      vm.Girls = PrenomsData.Get(Prenom.GIRL).OrderBy(p => r.NextDouble()).Take(PrenomsViewModel.PRENOMS_COUNT).ToArray();
       
       return vm;
     }

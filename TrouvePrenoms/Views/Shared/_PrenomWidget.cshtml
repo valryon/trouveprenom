@@ -1,3 +1,35 @@
 ﻿@model Prenom
 
-<li>@PrenomsViewModel.ToDisplayableName(Model)</li>
+<div class="col-6">
+    <h4>@PrenomsViewModel.ToDisplayableName(Model)</h4>
+    <canvas id="chart-@Model.GetHashCode()"></canvas>
+</div>
+
+<script>
+var ctx = document.getElementById("chart-@Model.GetHashCode()").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: @Html.Raw(Model.DataKeys),
+        datasets: [{
+            label: '',
+            backgroundColor: "rgba(159,170,174,0.8)", borderWidth: 1,
+            hoverBackgroundColor: "rgba(232,105,90,0.8)",
+            hoverBorderColor: "orange",
+            data:  @Html.Raw(Model.DataValues)
+        }]
+    },
+    options: {
+        legend: {
+            display: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
