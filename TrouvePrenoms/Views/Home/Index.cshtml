@@ -1,27 +1,49 @@
 ﻿@model PrenomsViewModel
 
-<h2>Garçon</h2>
+<div class="container">
+    <div class="row">
+        <p>Le site simple et sans fioritures pour aider les futurs parents à trouver un prénom.</p>
+        <p>10 prénoms par jour : 5 garçons / 5 filles</p>
+    </div>
+    
+    <h2>Garçons</h2>
+    <div class="row">
 
-<li>
-    @foreach (Prenom g in Model.Boys)
-    {
-        @Html.Partial("_PrenomWidget", g)
-    }
-</li>
+        <ul>
+            @foreach (Prenom g in Model.Boys)
+            {
+                @Html.Partial("_PrenomWidget", g)
+            }
+        </ul>
+    </div>
+    <h2>Filles</h2>
+    <div class="row">
+        <ul>
+            @foreach (Prenom f in Model.Girls)
+            {
+                @Html.Partial("_PrenomWidget", f)
+            }
+        </ul>
+    </div>
 
-<h2>Fille</h2>
-<li>
-    @foreach (Prenom f in Model.Girls)
-    {
-        @Html.Partial("_PrenomWidget", f)
-    }
-</li>
-
-<p>
-    @Html.ActionLink("<-", "CustomDate", "Home", new { dateString = Model.PreviousDateString }) 
-    @Model.DateString
-    @if (Model.IsTodayOrFuture == false)
-    {
-        @Html.ActionLink("->", "CustomDate", "Home", new { dateString = Model.NextDateString })
-    }
-</p>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("CustomDate", "Home", new { dateString = Model.PreviousDateString })" aria-label="Jour précédent">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Jour précédent</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">@Model.DateString</a></li>
+            @if (Model.IsTodayOrFuture == false)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("CustomDate", "Home", new { dateString = Model.NextDateString })" aria-label="Jour suivant">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Jour suivant</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

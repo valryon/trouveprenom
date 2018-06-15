@@ -16,11 +16,16 @@ namespace TrouvePrenoms.ViewModels
     public Prenom[] Girls { get; set; }
     public DateTime Date { get; set; }
 
+    public static string ToDisplayableName(Prenom p)
+    {
+      return DATE_CULTURE.TextInfo.ToTitleCase(p.Value.ToLower());
+    }
+
     public string DateString
     {
       get
       {
-        return Date.ToString(DATE_FORMAT, DATE_CULTURE);
+        return Date.ToString("dd MM yyyy", DATE_CULTURE);
       }
     }
 

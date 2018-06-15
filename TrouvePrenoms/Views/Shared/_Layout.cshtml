@@ -1,10 +1,15 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TrouvePrenom - 10 idées de prénoms par jour</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Trouve Prénom - 10 idées de prénoms par jour">
+    <meta name="author" content="Damien Mayance">
+    <title>Trouve Prénom - 10 idées de prénoms par jour</title>
 
+    <link rel="stylesheet" href="~/css/bootstrap-reboot.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-grid.min.css" />
     <environment include="Development">
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
@@ -14,17 +19,21 @@
 </head>
 <body>
     <header>
-        <h1>Trouve Prénom</h1>
-        <p>Le site simple et sans fioritures pour aider les futurs parents à trouver un prénom.</p>
-        <p>10 prénoms par jour : 5 garçons / 5 filles</p>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <strong>Trouve Prénom</strong>
+            </a>
+        </div>
     </header>
-    <main>
+    <main role="main">
         @RenderBody()
     </main>
     <hr />
-    <footer>
-        <p>&copy; 2018 - Damien Mayance</p>
-        <p><a href="(https://www.insee.fr/fr/statistiques/2540004">Données fournies par l'INSEE</a>. <a href="https://github.com/valryon/trouveprenom">Ce site est open source</a>.</p>
+    <footer class="text-muted">
+        <div class="container">
+            <p>&copy; 2018 - <a href="https://dmayance.com">Damien Mayance</a></p>
+            <p>Données fournies par <a href="https://www.insee.fr/fr/statistiques/2540004">l'INSEE</a>.
+        </div>
     </footer>
 
     @RenderSection("Scripts", required: false)

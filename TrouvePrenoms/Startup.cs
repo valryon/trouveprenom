@@ -46,6 +46,9 @@ namespace TrouvePrenoms
 
       app.UseMvc(routes =>
       {
+        routes.MapRoute("date", "date/{*dateString}",
+            defaults: new { controller = "Home", action = "CustomDate" });
+
         routes.MapRoute(
                   name: "default",
                   template: "{controller=Home}/{action=Index}/{id?}");
