@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Trouve Prénom - @(PrenomsViewModel.PRENOMS_COUNT*2) idées de prénoms par jour">
     <meta name="author" content="Damien Mayance">
-    <title>Trouve Prénom - @(PrenomsViewModel.PRENOMS_COUNT*2) idées de prénoms par jour</title>
+    <title>Trouve Prénom - @(PrenomsViewModel.PRENOMS_COUNT * 2) idées de prénoms par jour</title>
 
     <link rel="stylesheet" href="~/css/bootstrap-reboot.min.css" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
@@ -24,6 +24,7 @@
             <a href="#" class="navbar-brand d-flex align-items-center">
                 <strong>Trouve Prénom</strong>
             </a>
+            <a href="@Url.Action("Search","Home")">Recherche avancée</a>
         </div>
     </header>
     <main>

@@ -1,7 +1,7 @@
 ﻿@model Prenom
 
 <div class="col-6">
-    <h4>@PrenomsViewModel.ToDisplayableName(Model)</h4>
+    <h4>@(Model.Sex == Prenom.BOY ? "♂" : "♀") @PrenomsViewModel.ToDisplayableName(Model)</h4>
     <canvas id="chart-@Model.GetHashCode()"></canvas>
 </div>
 

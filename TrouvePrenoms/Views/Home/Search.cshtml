@@ -1,0 +1,46 @@
+﻿@model SearchViewModel
+
+<div class="container">
+    <div class="row">
+        <p>Recherche avancée</p>
+
+        @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+    {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            Entre <input type="text" name="minYear" value="@Model.MinYear" />
+        </fieldset>
+        <fieldset>
+            et <input type="text" name="maxYear" value="@Model.MaxYear" />
+        </fieldset>
+        <fieldset>
+            min x
+            <input type="text" name="minOccurences" value="@(Model.MinOccurences >= 0 ? @Model.MinOccurences.ToString() : "")" />
+        </fieldset>
+        <fieldset>
+            max x
+            <input type="text" name="minOccurences" value="@(Model.MaxOccurences >= 0 ? @Model.MaxOccurences.ToString() : "")" />
+        </fieldset>
+        <fieldset>
+            sexe
+            <select name="sex">
+                <!option value="0" @(Model.Sex <= 0  ? "selected" : "")>Tous</!option>
+                <!option value="@Prenom.BOY" @(Model.Sex == Prenom.BOY  ? "selected" : "")>Garçon</!option>
+                <!option value="@Prenom.GIRL" @(Model.Sex == Prenom.GIRL ? "selected" : "")>Fille</!option>
+            </select>
+        </fieldset>
+
+        <input type="submit" value="Rechercher" />
+}
+
+    </div>
+
+    <h2 class="text-success">Résultats</h2>
+    <div class="row">
+        @foreach (var g in Model.Results)
+        {
+            Html.RenderPartial("_PrenomWidget", g);
+        }
+    </div>
+
+</div>

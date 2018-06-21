@@ -15,6 +15,20 @@ namespace TrouvePrenoms.Models
     public int TotalCount { get; set; }
     public Dictionary<int, int> Counts { get; set; } = new Dictionary<int, int>();
     public int Sex { get; set; }
+    public int MinYear { get; set; }
+    public int MaxYear { get; set; }
+
+    public int GetCount(int yearMin, int yearMax)
+    {
+      int count = 0;
+
+      for (int i = yearMin; i <= yearMax; i++)
+      {
+        count += Counts[i];
+      }
+
+      return count;
+    }
 
     public override string ToString()
     {

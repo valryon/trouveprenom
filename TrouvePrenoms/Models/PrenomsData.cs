@@ -10,7 +10,6 @@ namespace TrouvePrenoms.Models
 {
   public class PrenomsData
   {
-
     // Singleton
     private static PrenomsData instance;
 
@@ -18,6 +17,9 @@ namespace TrouvePrenoms.Models
 
     private Dictionary<string, Prenom> boys = new Dictionary<string, Prenom>(50000);
     private Dictionary<string, Prenom> girls = new Dictionary<string, Prenom>(50000);
+
+    public static int MinYearGlobal { get; private set; }
+    public static int MaxYearGlobal { get; private set; }
 
     #endregion
 
@@ -40,6 +42,9 @@ namespace TrouvePrenoms.Models
       boys.Clear();
       girls.Clear();
 
+      MinYearGlobal = 2999;
+      MaxYearGlobal = -1;
+
       // Extract data line by line
       int n = 0;
       string line;
@@ -50,7 +55,6 @@ namespace TrouvePrenoms.Models
           // Ignore first 4 lines
           if (n >= 4)
           {
-
             // Parse
             var p = Parse(line);
 
@@ -60,7 +64,7 @@ namespace TrouvePrenoms.Models
 
               if (collection.ContainsKey(p.Value) == false)
               {
-                for (int i = 1900; i < DateTime.Now.Year; i+=5)
+                for (int i = 1900; i < DateTime.Now.Year; i ++)
                 {
                   if (p.Counts.ContainsKey(i) == false)
                   {
@@ -88,6 +92,15 @@ namespace TrouvePrenoms.Models
 
                 collection[p.Value] = pExist;
               }
+
+              var first = p.Counts.Where(a => a.Value > 0).FirstOrDefault();
+              var last = p.Counts.Where(a => a.Value > 0).LastOrDefault();
+
+              p.MinYear = first.Key;
+              p.MaxYear = last.Key;
+                            
+              if (p.MinYear > 0) MinYearGlobal = Math.Min(MinYearGlobal, p.MinYear);
+              if (p.MaxYear > 0) MaxYearGlobal = Math.Max(MaxYearGlobal, p.MaxYear);
             }
           }
 
