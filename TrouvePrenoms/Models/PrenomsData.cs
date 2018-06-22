@@ -64,7 +64,7 @@ namespace TrouvePrenoms.Models
 
               if (collection.ContainsKey(p.Value) == false)
               {
-                for (int i = 1900; i < DateTime.Now.Year; i ++)
+                for (int i = 1900; i < DateTime.Now.Year; i++)
                 {
                   if (p.Counts.ContainsKey(i) == false)
                   {
@@ -98,7 +98,7 @@ namespace TrouvePrenoms.Models
 
               p.MinYear = first.Key;
               p.MaxYear = last.Key;
-                            
+
               if (p.MinYear > 0) MinYearGlobal = Math.Min(MinYearGlobal, p.MinYear);
               if (p.MaxYear > 0) MaxYearGlobal = Math.Max(MaxYearGlobal, p.MaxYear);
             }
@@ -171,6 +171,29 @@ namespace TrouvePrenoms.Models
       {
         return collection.Values.Where(p => predicate(p)).ToArray();
       }
+    }
+
+    public static Prenom[] Get(Predicate<Prenom> predicate = null)
+    {
+      if (instance == null) return null;
+
+      var collection = instance.boys.Values.Union(instance.girls.Values);
+
+      if (predicate == null)
+      {
+        return collection.ToArray();
+      }
+      else
+      {
+        return collection.Where(p => predicate(p)).ToArray();
+      }
+    }
+
+    public static string[] GetAllPrenoms()
+    {
+      if (instance == null) return null;
+
+      return instance.boys.Keys.Union(instance.girls.Keys).ToArray();
     }
 
     #endregion

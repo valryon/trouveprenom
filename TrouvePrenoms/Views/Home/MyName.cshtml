@@ -1,0 +1,22 @@
+﻿@model MyNameViewModel
+
+<div class="container">
+    <h2>Mon prénom</h2>
+
+    <form class="form-inline" action="@Url.Action("MyName", "Home")" method="get">
+        <div class="form-group">
+            <label for="search">Entrez un prénom pour avoir ses stats et les prénoms similaires : </label>
+            <input type="text" name="search" value="@Model.Search" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+
+    <div class="row">
+        @foreach (var g in Model.Results)
+        {
+            Html.RenderPartial("_PrenomWidget", g);
+        }
+    </div>
+
+</div>

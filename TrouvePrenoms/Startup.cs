@@ -52,6 +52,9 @@ namespace TrouvePrenoms
         routes.MapRoute("search", "search",
             defaults: new { controller = "Home", action = "Search" });
 
+        routes.MapRoute("myname", "myname/{*search}",
+            defaults: new { controller = "Home", action = "MyName" });
+
         routes.MapRoute(
                   name: "default",
                   template: "{controller=Home}/{action=Index}/{id?}");

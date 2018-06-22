@@ -157,6 +157,29 @@ namespace TrouvePrenoms.Controllers
       return vm;
     }
 
+    public IActionResult MyName([FromQuery] string search)
+    {
+      MyNameViewModel vm = new MyNameViewModel();
+      vm.Search = search;
+
+      if (string.IsNullOrWhiteSpace(search) == false)
+      {
+        Predicate<Prenom> pre = (p) =>
+       {
+         return p.Value.MinLevenshteinDistance(search) <= 2;
+       };
+
+        var t = PrenomsData.Get(pre);
+        vm.Results = t.OrderBy(p=>p.Value.Split("-").Length).OrderBy(p => p.Value.MinLevenshteinDistance(search)).Take(10).ToArray();
+      }
+      else
+      {
+        vm.Results = new Prenom[0];
+      }
+
+      return View(vm);
+    }
+
     private static Predicate<Prenom> CreatePredicate(Criteria criteria)
     {
       // Search with LINQ
