@@ -64,7 +64,7 @@ namespace TrouvePrenoms.Controllers
       vm.TotalCount = totalCount;
       vm.Results = list.OrderBy(p => p.Value).Skip((page - 1) * count).Take(count).ToArray();
 
-      vm.TotalPages = list.OrderBy(p => p.Value).Count() / count;
+      vm.TotalPages = totalCount / count;
 
       return View(vm);
     }
