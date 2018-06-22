@@ -17,6 +17,7 @@ namespace TrouvePrenoms.ViewModels
     public Prenom[] Boys { get; set; }
     public Prenom[] Girls { get; set; }
     public DateTime Date { get; set; }
+    public Criteria Criteria { get; set; }
 
     public static string ToDisplayableName(Prenom p)
     {

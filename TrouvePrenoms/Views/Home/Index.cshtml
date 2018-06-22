@@ -6,14 +6,29 @@
         <p>@(PrenomsViewModel.PRENOMS_COUNT * 2) prénoms par jour : @PrenomsViewModel.PRENOMS_COUNT garçons / @PrenomsViewModel.PRENOMS_COUNT filles</p>
     </div>
 
-    <h2 class="text-success">Garçons</h2>
+    <div class="row">
+        <p>Critères du jour : </p>
+        <ul>
+            <li>prénoms de @Model.Criteria.MinYear à @Model.Criteria.MaxYear</li>
+            @if (Model.Criteria.MinOccurences >= 0)
+            {
+                <li>au moins @Model.Criteria.MinOccurences occurence@(Model.Criteria.MinOccurences > 1 ? "s" : "")</li>
+            }
+            @if (Model.Criteria.MaxOccurences >= 0)
+            {
+                <li>maximum @Model.Criteria.MaxOccurences occurence@(Model.Criteria.MaxOccurences > 1 ? "s" : "")</li>
+            }
+        </ul>
+    </div>
+
+    <h2>Garçons</h2>
     <div class="row">
         @foreach (var g in Model.Boys)
         {
             Html.RenderPartial("_PrenomWidget", g);
         }
     </div>
-    <h2 class="text-info">Filles</h2>
+    <h2>Filles</h2>
     <div class="row">
         @foreach (var f in Model.Girls)
         {

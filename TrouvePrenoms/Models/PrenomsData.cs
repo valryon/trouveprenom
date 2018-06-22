@@ -134,6 +134,7 @@ namespace TrouvePrenoms.Models
       p.Value = data[1];
 
       if (p.Value == "_PRENOMS_RARES") return null;
+      if (p.Value == "Anonyme") return null;
 
       p.TotalCount = Int32.Parse(data[3]);
       p.Counts = new Dictionary<int, int>();

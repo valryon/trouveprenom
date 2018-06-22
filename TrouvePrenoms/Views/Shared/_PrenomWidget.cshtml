@@ -1,8 +1,19 @@
 ﻿@model Prenom
 
 <div class="col-6">
-    <h4>@(Model.Sex == Prenom.BOY ? "♂" : "♀") @PrenomsViewModel.ToDisplayableName(Model)</h4>
-    <canvas id="chart-@Model.GetHashCode()"></canvas>
+    <div class="row">
+        <div class="col-8">
+            <h4 class="@(Model.Sex == Prenom.BOY ? "text-info" : "text-danger")">
+                @(Model.Sex == Prenom.BOY ? "♂" : "♀") @PrenomsViewModel.ToDisplayableName(Model)
+            </h4>
+        </div>
+        <div class="col-4 text-right">
+            <span class="small">@Model.TotalCount occurences</span>
+        </div>
+    </div>
+    <div class="row">
+        <canvas id="chart-@Model.GetHashCode()"></canvas>
+    </div>
 </div>
 
 <script>
