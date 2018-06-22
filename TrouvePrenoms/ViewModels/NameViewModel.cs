@@ -7,7 +7,7 @@ using TrouvePrenoms.Models;
 
 namespace TrouvePrenoms.ViewModels
 {
-  public class MyNameViewModel
+  public class NameViewModel
   {
     public string Search { get; set; }
     public Prenom[] Results { get; set; }   

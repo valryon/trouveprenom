@@ -3,8 +3,10 @@
 <div class="col-6">
     <div class="row">
         <div class="col-8">
-            <h4 class="@(Model.Sex == Prenom.BOY ? "text-info" : "text-danger")">
-                @(Model.Sex == Prenom.BOY ? "♂" : "♀") @PrenomsViewModel.ToDisplayableName(Model)
+            <h4>
+                <a class="@(Model.Sex == Prenom.BOY ? "text-info" : "text-danger")" href="@Url.Action("Name","Home", new { name=PrenomsViewModel.ToDisplayableName(Model)})">
+                    @(Model.Sex == Prenom.BOY ? "♂" : "♀") @PrenomsViewModel.ToDisplayableName(Model)
+                </a>
             </h4>
         </div>
         <div class="col-4 text-right">

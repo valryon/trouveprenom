@@ -9,9 +9,11 @@ namespace TrouvePrenoms.ViewModels
 {
   public class Criteria
   {
+    public const int MIN_COUNT_THRESHOLD = 500;
+
     public int MinYear { get; set; } = PrenomsData.MinYearGlobal;
     public int MaxYear { get; set; } = PrenomsData.MaxYearGlobal;
-    public int MinOccurences { get; set; } = -1;
+    public int MinOccurences { get; set; } = MIN_COUNT_THRESHOLD;
     public int MaxOccurences { get; set; } = -1;
   }
 }

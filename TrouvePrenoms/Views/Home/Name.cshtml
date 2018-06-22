@@ -1,9 +1,9 @@
-﻿@model MyNameViewModel
+﻿@model NameViewModel
 
 <div class="container">
     <h2>Mon prénom</h2>
 
-    <form class="form-inline" action="@Url.Action("MyName", "Home")" method="get">
+    <form class="form-inline" action="@Url.Action("Name", "Home")" method="get">
         <div class="form-group">
             <label for="search">Entrez un prénom pour avoir ses stats et les prénoms similaires : </label>
             <input type="text" name="search" value="@Model.Search" />

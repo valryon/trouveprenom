@@ -27,6 +27,7 @@ namespace TrouvePrenoms
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
+      services.AddRouting(options => options.LowercaseUrls = true);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,14 +47,15 @@ namespace TrouvePrenoms
 
       app.UseMvc(routes =>
       {
+        routes.MapRoute("name", "name/{*name}",
+            defaults: new { controller = "Home", action = "Name" });
+
         routes.MapRoute("date", "date/{*dateString}",
             defaults: new { controller = "Home", action = "CustomDate" });
 
         routes.MapRoute("search", "search",
             defaults: new { controller = "Home", action = "Search" });
 
-        routes.MapRoute("myname", "myname/{*search}",
-            defaults: new { controller = "Home", action = "MyName" });
 
         routes.MapRoute(
                   name: "default",

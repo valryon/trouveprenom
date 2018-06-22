@@ -13,8 +13,6 @@ namespace TrouvePrenoms.Controllers
 {
   public class HomeController : Controller
   {
-    private const int MIN_COUNT_THRESHOLD = 500;
-
     public IActionResult Index()
     {
       return View(GetData(DateTime.Now));
@@ -25,7 +23,11 @@ namespace TrouvePrenoms.Controllers
       try
       {
         DateTime date = DateTime.ParseExact(dateString, PrenomsViewModel.DATE_FORMAT, PrenomsViewModel.DATE_CULTURE);
-        return View("Index", GetData(date));
+        var vm = GetData(date);
+
+        ViewData["title"] = "Les prénoms du " + vm.DateString;
+
+        return View("Index",vm);
       }
       catch (Exception)
       {
@@ -62,9 +64,14 @@ namespace TrouvePrenoms.Controllers
         list.AddRange(g);
       }
       vm.TotalCount = totalCount;
-      vm.Results = list.OrderBy(p => p.Value).Skip((page - 1) * count).Take(count).ToArray();
+      vm.Results = list.OrderByDescending(p => p.GetCount(criteria.MinYear, criteria.MaxYear)).ThenBy(p => p.Value).Skip((page - 1) * count).Take(count).ToArray();
 
       vm.TotalPages = totalCount / count;
+
+      string sexString = "";
+      if (sex == Prenom.BOY) sexString = "masculins";
+      if (sex == Prenom.GIRL) sexString = "féminins";
+      ViewData["title"] = "Les prénoms "+ sexString + " de " + vm.Criteria.MinYear +" à "+ vm.Criteria.MaxYear;
 
       return View(vm);
     }
@@ -76,7 +83,7 @@ namespace TrouvePrenoms.Controllers
 
       int minYear = PrenomsData.MinYearGlobal;
       int maxYear = PrenomsData.MaxYearGlobal;
-      int minOcc = MIN_COUNT_THRESHOLD;
+      int minOcc = Criteria.MIN_COUNT_THRESHOLD;
       int maxOcc = -1;
 
       // Make more specific choices
@@ -126,7 +133,7 @@ namespace TrouvePrenoms.Controllers
         case 8:
           minYear = r.Next(minYear, maxYear - 50);
           maxYear = r.Next(minYear, maxYear);
-          minOcc = r.Next(MIN_COUNT_THRESHOLD, 250000);
+          minOcc = r.Next(Criteria.MIN_COUNT_THRESHOLD, 250000);
           break;
 
         default:
@@ -157,25 +164,29 @@ namespace TrouvePrenoms.Controllers
       return vm;
     }
 
-    public IActionResult MyName([FromQuery] string search)
+    public IActionResult Name(string name, string search =null)
     {
-      MyNameViewModel vm = new MyNameViewModel();
-      vm.Search = search;
+      if (string.IsNullOrEmpty(search) == false) name = search;
 
-      if (string.IsNullOrWhiteSpace(search) == false)
+      NameViewModel vm = new NameViewModel();
+      vm.Search = name;
+
+      if (string.IsNullOrWhiteSpace(name) == false)
       {
         Predicate<Prenom> pre = (p) =>
-       {
-         return p.Value.MinLevenshteinDistance(search) <= 2;
-       };
+        {
+          return p.Value.MinLevenshteinDistance(name) <= 2;
+        };
 
         var t = PrenomsData.Get(pre);
-        vm.Results = t.OrderBy(p=>p.Value.Split("-").Length).OrderBy(p => p.Value.MinLevenshteinDistance(search)).Take(10).ToArray();
+        vm.Results = t.OrderBy(p => p.Value.Split("-").Length).ThenBy(p => p.Value.MinLevenshteinDistance(name)).ThenByDescending(p => p.TotalCount).Take(10).ToArray();
       }
       else
       {
         vm.Results = new Prenom[0];
       }
+
+      ViewData["title"] = name + " : statistiques et prénoms similaires";
 
       return View(vm);
     }

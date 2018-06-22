@@ -14,13 +14,13 @@
         </div>
         <div class="form-group">
             <label for="minOccurences">
-                min x
+                occurences min
             </label>
             <input type="number" name="minOccurences" value="@(Model.Criteria.MinOccurences >= 0 ? @Model.Criteria.MinOccurences.ToString() : "")" />
         </div>
         <div class="form-group">
             <label for="maxOccurences">
-                max x
+                occurences max
             </label>
             <input type="number" name="maxOccurences" value="@(Model.Criteria.MaxOccurences >= 0 ? @Model.Criteria.MaxOccurences.ToString() : "")" />
         </div>
@@ -40,6 +40,9 @@
 
 
     <h3>Résultats - @Model.Results.Length prénom@(Model.Results.Length > 1 ? "s" : "") (@Model.TotalCount résultats en tout) </h3>
+    <p>
+        Tri par nombre d'occurences décroissants sur la période indiquée.
+    </p>
     <div class="row">
         @foreach (var g in Model.Results)
         {
