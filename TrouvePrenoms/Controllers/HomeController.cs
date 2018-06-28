@@ -133,7 +133,7 @@ namespace TrouvePrenoms.Controllers
         case 8:
           minYear = r.Next(minYear, maxYear - 50);
           maxYear = r.Next(minYear, maxYear);
-          minOcc = r.Next(Criteria.MIN_COUNT_THRESHOLD, 250000);
+          minOcc = r.Next(10/(maxYear - minYear), 500/(maxYear - minYear));
           break;
 
         default:
