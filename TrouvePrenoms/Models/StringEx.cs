@@ -9,8 +9,13 @@ namespace TrouvePrenoms.Models
       if (String.IsNullOrEmpty(s) || String.IsNullOrEmpty(t)) return 0;
       if (s == t) return 0;
 
-      string[] ss = s.Split("-");
       int distance = 99;
+
+      // Distance with the whole name
+      distance = Math.Min(distance, s.LevenshteinDistance(t));
+
+      // Distance splitting the "-"
+      string[] ss = s.Split("-");
       for (int i = 0; i < ss.Length; i++)
       {
         distance = Math.Min(distance, ss[i].LevenshteinDistance(t));
