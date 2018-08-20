@@ -1,12 +1,12 @@
 ﻿@model PrenomsViewModel
 
-<div class="container">
-    <div class="row">
+<div class="content">
+    <div class="pure-g">
         <p>Le site simple et sans fioritures pour aider les futurs parents à trouver un prénom.</p>
         <p>@(PrenomsViewModel.PRENOMS_COUNT * 2) prénoms par jour : @PrenomsViewModel.PRENOMS_COUNT garçons / @PrenomsViewModel.PRENOMS_COUNT filles</p>
     </div>
 
-    <div class="row">
+    <div class="pure-g"">
         <p>Critères du jour : </p>
         <ul>
             <li>prénoms de @Model.Criteria.MinYear à @Model.Criteria.MaxYear</li>
@@ -22,14 +22,14 @@
     </div>
 
     <h2>Garçons</h2>
-    <div class="row">
+    <div class="pure-g"">
         @foreach (var g in Model.Boys)
         {
             Html.RenderPartial("_PrenomWidget", g);
         }
     </div>
     <h2>Filles</h2>
-    <div class="row">
+    <div class="pure-g"">
         @foreach (var f in Model.Girls)
         {
             Html.RenderPartial("_PrenomWidget", f);
