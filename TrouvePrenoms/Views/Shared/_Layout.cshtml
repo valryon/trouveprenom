@@ -3,10 +3,10 @@
 <head>
     @{string title = (PrenomsViewModel.PRENOMS_COUNT * 2) + " idées de prénoms par jour";
 
-      if (ViewData["title"] != null)
-      {
-          title = ViewData["title"].ToString();
-      }
+        if (ViewData["title"] != null)
+        {
+            title = ViewData["title"].ToString();
+        }
     }
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,6 +32,8 @@
         <meta property="og:image:height" content="630">*@
     <title>Trouve Prénom - @title</title>
     <link rel="stylesheet" href="~/css/pure-min.css" />
+    <link rel="stylesheet" href="~/css/pure-babyblue.css" />
+    <link rel="stylesheet" href="~/css/grids-responsive-min.css" />
     @*<environment include="Development">*@
     <link rel="stylesheet" href="~/css/site.css" />
     @*</environment>
@@ -42,48 +44,35 @@
 </head>
 <body>
     <div class="layout">
-        <div id="menu">
-            <div class="pure-menu">
-                <a class="pure-menu-heading" href="/">Trouve Prénom</a>
-                <ul class="pure-menu-list">
-                    <li class="pure-menu-item">
-                        <a class="pure-menu-link" href="@Url.Action("Index","Home")">Prénoms du jour</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a class="pure-menu-link" href="@Url.Action("Search","Home")">Recherche avancée</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a class="pure-menu-link" href="@Url.Action("Name","Home")">Mon prénom</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="https://dmayance.com/" class="pure-menu-link">Autres projets</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
         <div class="main">
             <div class="header">
                 <h1>Trouve Prénom</h1>
-                <h2>@ViewData["title"].ToString();</h2>
+                <div class="pure-menu pure-menu-horizontal">
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item">
+                            <a class="pure-menu-link" href="@Url.Action("Index","Home")">Prénoms du jour</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a class="pure-menu-link" href="@Url.Action("Search","Home")">Recherche avancée</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a class="pure-menu-link" href="@Url.Action("Name","Home")">Mon prénom</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                @RenderBody()
-            </div>
+            @RenderBody()
             <div class="footer">
-                <hr />
                 <div class="content">
-                    <div class="pure-g">
-                        <p>&copy; 2018 - <a href="https://dmayance.com">Damien Mayance</a></p>
-                    </div>
-                    <div class="pure-g">
-                        <p>Données fournies par <a href="https://www.insee.fr/fr/statistiques/2540004">l'INSEE</a>.
-                    </div>
-            </div>
+                    <p>&copy; 2018 - <a href="https://dmayance.com">Damien Mayance</a></p>
+                </div>
+                <div class="content">
+                    <p>Données fournies par <a href="https://www.insee.fr/fr/statistiques/2540004">l'INSEE</a>.
+                </div>
             </div>
         </div>
     </div>
+    @RenderSection("Scripts", required: false)
 </body>
 
-@RenderSection("Scripts", required: false)
-</body>
 </html>

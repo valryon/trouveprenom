@@ -1,59 +1,56 @@
 ﻿@model PrenomsViewModel
-
 <div class="content">
-    <div class="pure-g">
-        <p>Le site simple et sans fioritures pour aider les futurs parents à trouver un prénom.</p>
-        <p>@(PrenomsViewModel.PRENOMS_COUNT * 2) prénoms par jour : @PrenomsViewModel.PRENOMS_COUNT garçons / @PrenomsViewModel.PRENOMS_COUNT filles</p>
-    </div>
-
-    <div class="pure-g"">
-        <p>Critères du jour : </p>
-        <ul>
-            <li>prénoms de @Model.Criteria.MinYear à @Model.Criteria.MaxYear</li>
-            @if (Model.Criteria.MinOccurences >= 0)
-            {
-                <li>au moins @Model.Criteria.MinOccurences occurence@(Model.Criteria.MinOccurences > 1 ? "s" : "")</li>
-            }
-            @if (Model.Criteria.MaxOccurences >= 0)
-            {
-                <li>maximum @Model.Criteria.MaxOccurences occurence@(Model.Criteria.MaxOccurences > 1 ? "s" : "")</li>
-            }
-        </ul>
-    </div>
-
+    <p>Le site simple et sans fioritures pour aider les futurs parents à trouver un prénom.</p>
+    <p>@(PrenomsViewModel.PRENOMS_COUNT * 2) prénoms par jour : @PrenomsViewModel.PRENOMS_COUNT garçons / @PrenomsViewModel.PRENOMS_COUNT filles</p>
+</div>
+<div class="content">
+    <p>Critères du jour : </p>
+    <ul>
+        <li>prénoms de @Model.Criteria.MinYear à @Model.Criteria.MaxYear</li>
+        @if (Model.Criteria.MinOccurences >= 0)
+        {
+            <li>au moins @Model.Criteria.MinOccurences occurence@(Model.Criteria.MinOccurences > 1 ? "s" : "")</li>
+        }
+        @if (Model.Criteria.MaxOccurences >= 0)
+        {
+            <li>maximum @Model.Criteria.MaxOccurences occurence@(Model.Criteria.MaxOccurences > 1 ? "s" : "")</li>
+        }
+    </ul>
+</div>
+<div class="content">
     <h2>Garçons</h2>
-    <div class="pure-g"">
+    <div class="pure-g" ">
         @foreach (var g in Model.Boys)
         {
             Html.RenderPartial("_PrenomWidget", g);
         }
     </div>
+</div>
+<div class="content">
     <h2>Filles</h2>
-    <div class="pure-g"">
+    <div class="pure-g" ">
         @foreach (var f in Model.Girls)
         {
             Html.RenderPartial("_PrenomWidget", f);
         }
     </div>
+</div>
 
-    <nav aria-label="Date">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="@Url.Action("CustomDate", "Home", new { dateString = Model.PreviousDateString })" aria-label="Jour précédent">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Jour précédent</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">@Model.DateString</a></li>
-            @if (Model.IsTodayOrFuture == false)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("CustomDate", "Home", new { dateString = Model.NextDateString })" aria-label="Jour suivant">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Jour suivant</span>
-                    </a>
-                </li>
-            }
-        </ul>
-    </nav>
+<div class="content">
+
+    <a class="button button-secondary pure-button"
+       href="@Url.Action("CustomDate", "Home" , new { dateString=Model.PreviousDateString })">
+        &laquo;&nbsp;Jour précédent
+    </a>
+    <a class="button button-secondary pure-button"
+       href="#">
+        @Model.DateString
+    </a>
+    @if (Model.IsTodayOrFuture == false)
+    {
+        <a class="button button-secondary pure-button"
+           href="@Url.Action("CustomDate", "Home", new { dateString = Model.NextDateString })">
+            &raquo;&nbsp;Jour suivant
+        </a>
+    }
 </div>

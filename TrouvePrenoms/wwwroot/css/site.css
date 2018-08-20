@@ -1,1 +1,13 @@
-﻿
+﻿a.prenom {
+    font-size: 22px;
+}
+a.boy {
+    color: #008ed4;
+}
+a.girl {
+    color: #be63ff;
+}
+
+.occurences {
+    text-align: right;
+}
