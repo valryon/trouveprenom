@@ -1,10 +1,13 @@
 ﻿@model PrenomsViewModel
 <div class="content">
-    <p>Le site simple et sans fioritures pour aider les futurs parents à trouver un prénom.</p>
-    <p>@(PrenomsViewModel.PRENOMS_COUNT * 2) prénoms par jour : @PrenomsViewModel.PRENOMS_COUNT garçons / @PrenomsViewModel.PRENOMS_COUNT filles</p>
+    <p>
+        Le site <strong>simple</strong> et <strong>sans fioritures</strong> pour aider les futurs parents à trouver un <strong>prénom</strong> !<br />
+        <strong>@(PrenomsViewModel.PRENOMS_COUNT * 2) prénoms par jour :</strong> @PrenomsViewModel.PRENOMS_COUNT garçons / @PrenomsViewModel.PRENOMS_COUNT filles
+    </p>
+    <p></p>
 </div>
 <div class="content">
-    <p>Critères du jour : </p>
+    <h2>Critères du jour</h2>
     <ul>
         <li>prénoms de @Model.Criteria.MinYear à @Model.Criteria.MaxYear</li>
         @if (Model.Criteria.MinOccurences >= 0)
@@ -18,7 +21,7 @@
     </ul>
 </div>
 <div class="content">
-    <h2>Garçons</h2>
+    <h3>Garçons</h3>
     <div class="pure-g">
         @foreach (var g in Model.Boys)
         {
@@ -27,7 +30,7 @@
     </div>
 </div>
 <div class="content">
-    <h2>Filles</h2>
+    <h3>Filles</h3>
     <div class="pure-g">
         @foreach (var f in Model.Girls)
         {
