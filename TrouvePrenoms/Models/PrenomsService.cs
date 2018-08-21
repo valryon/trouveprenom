@@ -5,16 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ProtoBuf;
 
 namespace TrouvePrenoms.Models
 {
-  [System.Serializable]
+  [ProtoContract]
   public class PrenomsData
   {
+    [ProtoMember(1)]
     public Dictionary<string, Prenom> Boys = new Dictionary<string, Prenom>(50000);
+    [ProtoMember(2)]
     public Dictionary<string, Prenom> Girls = new Dictionary<string, Prenom>(50000);
-
+    [ProtoMember(3)]
     public int MinYearGlobal;
+    [ProtoMember(4)]
     public int MaxYearGlobal;
   }
 
@@ -218,16 +222,16 @@ namespace TrouvePrenoms.Models
 
     #region Serialization & caching
 
-    private bool LoadCache(string file)
+    private bool LoadCache(string filePath)
     {
       // Disable caching here
-      return false;
-
-      if (File.Exists(file) == false) return false;
+      if (File.Exists(filePath) == false) return false;
       try
       {
-        var binData = File.ReadAllBytes(file);
-        data = (PrenomsData)Serializer.DeSerialize(binData);
+        using (var file = File.OpenRead(filePath))
+        {
+          data = Serializer.Deserialize<PrenomsData>(file);
+        }
 
         return true;
       }
@@ -235,12 +239,14 @@ namespace TrouvePrenoms.Models
       return false;
     }
 
-    private void SaveCache(string file)
+    private void SaveCache(string filePath)
     {
       try
       {
-        var binData = Serializer.Serialize(data);
-        File.WriteAllBytes(file, binData);
+        using (var file = File.Create(filePath))
+        {
+          Serializer.Serialize(file, data);
+        }
       }
       catch (Exception) { }
     }

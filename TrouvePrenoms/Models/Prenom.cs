@@ -3,21 +3,27 @@
 // file 'LICENSE.md', which is part of this source code package
 using System;
 using System.Collections.Generic;
+using ProtoBuf;
 
 namespace TrouvePrenoms.Models
 {
-  [System.Serializable]
+  [ProtoContract]
   public class Prenom
   {
     public const int BOY = 1;
     public const int GIRL = 2;
 
-
+    [ProtoMember(1)]
     public string Value { get; set; }
+    [ProtoMember(2)]
     public int TotalCount { get; set; }
+    [ProtoMember(3)]
     public Dictionary<int, int> Counts { get; set; } = new Dictionary<int, int>();
+    [ProtoMember(4)]
     public int Sex { get; set; }
+    [ProtoMember(5)]
     public int MinYear { get; set; }
+    [ProtoMember(6)]
     public int MaxYear { get; set; }
 
     public int GetCount(int yearMin, int yearMax)
