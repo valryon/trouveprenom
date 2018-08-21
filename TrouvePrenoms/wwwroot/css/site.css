@@ -11,3 +11,8 @@ a.girl {
 .occurences {
     text-align: right;
 }
+
+.widget {
+    padding-left: 10px;
+    padding-right: 10px;
+}

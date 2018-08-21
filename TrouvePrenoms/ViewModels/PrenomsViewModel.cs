@@ -7,7 +7,7 @@ using TrouvePrenoms.Models;
 
 namespace TrouvePrenoms.ViewModels
 {
-  public class PrenomsViewModel
+  public class PrenomsViewModel : BaseViewModel
   {
     public const int PRENOMS_COUNT = 6;
 
@@ -57,5 +57,7 @@ namespace TrouvePrenoms.ViewModels
           && Date.Year >= DateTime.Now.Year;
       }
     }
+
+    public override int SelectedMenu => 1;
   }
 }

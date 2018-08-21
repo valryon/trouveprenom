@@ -7,10 +7,12 @@ using TrouvePrenoms.Models;
 
 namespace TrouvePrenoms.ViewModels
 {
-  public class NameViewModel
+  public class NameViewModel : BaseViewModel
   {
     public string Search { get; set; }
-    public Prenom[] Results { get; set; }   
+    public Prenom[] Results { get; set; }
     //public string[] AllNames { get; set; }
+
+    public override int SelectedMenu => 3;
   }
 }

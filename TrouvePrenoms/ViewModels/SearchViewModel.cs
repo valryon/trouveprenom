@@ -7,7 +7,7 @@ using TrouvePrenoms.Models;
 
 namespace TrouvePrenoms.ViewModels
 {
-  public class SearchViewModel
+  public class SearchViewModel : BaseViewModel
   {
     public Prenom[] Results { get; set; }
     public Criteria Criteria { get; set; }
@@ -30,5 +30,7 @@ namespace TrouvePrenoms.ViewModels
         page = Page + modifier
       };
     }
+
+    public override int SelectedMenu => 2;
   }
 }

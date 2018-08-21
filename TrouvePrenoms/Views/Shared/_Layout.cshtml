@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model BaseViewModel
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     @{string title = (PrenomsViewModel.PRENOMS_COUNT * 2) + " idées de prénoms par jour";
@@ -12,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Trouve Prénom - @title">
     <meta name="author" content="Damien Mayance">
-
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     @*<meta name="twitter:site" content="@@valryon">*@
@@ -49,13 +49,13 @@
                 <h1>Trouve Prénom</h1>
                 <div class="pure-menu pure-menu-horizontal">
                     <ul class="pure-menu-list">
-                        <li class="pure-menu-item">
-                            <a class="pure-menu-link" href="@Url.Action("Index","Home")">Prénoms du jour</a>
+                        <li class="pure-menu-item @(Model.SelectedMenu == 1 ? "pure-menu-selected" : "")">
+                            <a class="pure-menu-link" href="@Url.Action("Index","Home")">Aujourd'hui</a>
                         </li>
-                        <li class="pure-menu-item">
-                            <a class="pure-menu-link" href="@Url.Action("Search","Home")">Recherche avancée</a>
+                        <li class="pure-menu-item @(Model.SelectedMenu == 2 ? "pure-menu-selected" : "")">
+                            <a class="pure-menu-link" href="@Url.Action("Search","Home")">Recherche</a>
                         </li>
-                        <li class="pure-menu-item">
+                        <li class="pure-menu-item @(Model.SelectedMenu == 3 ? "pure-menu-selected" : "")">
                             <a class="pure-menu-link" href="@Url.Action("Name","Home")">Mon prénom</a>
                         </li>
                     </ul>
@@ -74,5 +74,4 @@
     </div>
     @RenderSection("Scripts", required: false)
 </body>
-
 </html>

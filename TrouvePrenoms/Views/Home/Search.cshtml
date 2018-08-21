@@ -1,75 +1,78 @@
 ﻿@model SearchViewModel
 
-<div class="container">
+<div class="content">
     <h2>Recherche avancée</h2>
+</div>
 
-    <form class="form-inline" action="@Url.Action("Search", "Home")" method="get">
-        <div class="form-group">
-            <label for="minYear">Entre</label>
-            <input type="number" name="minYear" value="@Model.Criteria.MinYear" />
-        </div>
-        <div class="form-group">
-            <label for="maxYear"> et </label>
-            <input type="number" name="maxYear" value="@Model.Criteria.MaxYear" />
-        </div>
-        <div class="form-group">
-            <label for="minOccurences">
-                occurences min
-            </label>
-            <input type="number" name="minOccurences" value="@(Model.Criteria.MinOccurences >= 0 ? @Model.Criteria.MinOccurences.ToString() : "")" />
-        </div>
-        <div class="form-group">
-            <label for="maxOccurences">
-                occurences max
-            </label>
-            <input type="number" name="maxOccurences" value="@(Model.Criteria.MaxOccurences >= 0 ? @Model.Criteria.MaxOccurences.ToString() : "")" />
-        </div>
-        <div class="form-group">
-            <label for="sex">
-                sexe
-            </label>
-            <select name="sex">
-                <!option value="0" @(Model.Sex <= 0 ? "selected" : "")>Tous</!option>
-                <!option value="@Prenom.BOY" @(Model.Sex == Prenom.BOY ? "selected" : "")>Garçon</!option>
-                <!option value="@Prenom.GIRL" @(Model.Sex == Prenom.GIRL ? "selected" : "")>Fille</!option>
-            </select>
-        </div>
+<div class="content">
+    <form class="pure-form pure-form-stacked" action="@Url.Action("Search", "Home")" method="get">
+        <fieldset>
+            <legend>Critères de recherche</legend>
 
-        <button type="submit" class="btn btn-primary">Rechercher</button>
+            <div class="pure-g">
+                <div class="pure-u-1 pure-u-md-1-2">
+                    <label for="minYear">Entre</label>
+                    <input type="number" name="minYear" value="@Model.Criteria.MinYear" />
+                </div>
+                <div class="pure-u-1 pure-u-md-1-2">
+                    <label for="maxYear"> et </label>
+                    <input type="number" name="maxYear" value="@Model.Criteria.MaxYear" />
+                </div>
+                <div class="pure-u-1 pure-u-md-1-2">
+                    <label for="minOccurences">
+                        occurences min
+                    </label>
+                    <input type="number" name="minOccurences" value="@(Model.Criteria.MinOccurences >= 0 ? @Model.Criteria.MinOccurences.ToString() : "")" />
+                </div>
+                <div class="pure-u-1 pure-u-md-1-2">
+                    <label for="maxOccurences">
+                        occurences max
+                    </label>
+                    <input type="number" name="maxOccurences" value="@(Model.Criteria.MaxOccurences >= 0 ? @Model.Criteria.MaxOccurences.ToString() : "")" />
+                </div>
+                <div class="pure-u-1 pure-u-md-1-2">
+                    <label for="sex">
+                        sexe
+                    </label>
+                    <select name="sex">
+                        <!option value="0" @(Model.Sex <= 0 ? "selected" : "")>Tous</!option>
+                        <!option value="@Prenom.BOY" @(Model.Sex == Prenom.BOY ? "selected" : "")>Garçon</!option>
+                        <!option value="@Prenom.GIRL" @(Model.Sex == Prenom.GIRL ? "selected" : "")>Fille</!option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="pure-button pure-button-primary">Rechercher</button>
+        </fieldset>
     </form>
+</div>
 
-
+<div class="content">
     <h3>Résultats - @Model.Results.Length prénom@(Model.Results.Length > 1 ? "s" : "") (@Model.TotalCount résultats en tout) </h3>
     <p>
         Tri par nombre d'occurences décroissants sur la période indiquée.
     </p>
-    <div class="row">
+    <div class="pure-g">
         @foreach (var g in Model.Results)
         {
             Html.RenderPartial("_PrenomWidget", g);
         }
     </div>
-
-    <nav>
-        <ul class="pagination justify-content-center">
-            @if (Model.Page > 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Search", "Home", Model.GetPagination(-1))">
-                        <span aria-hidden="true">&laquo;&nbsp;@(Model.Page - 1)</span>
-                    </a>
-                </li>
-            }
-            <li class="page-item active"><a class="page-link" href="#">@Model.Page</a></li>
-            @if (Model.Page < Model.TotalPages)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Search", "Home", Model.GetPagination(+1))">
-                        <span aria-hidden="true">@(Model.Page + 1)&nbsp;&raquo;</span>
-                    </a>
-                </li>
-            }
-        </ul>
-    </nav>
+</div>
+<div class="content">
+    @if (Model.Page > 1)
+    {
+        <a class="button button-secondary pure-button" href="@Url.Action("Search", "Home", Model.GetPagination(-1))">
+            &laquo;&nbsp;@(Model.Page - 1)
+        </a>
+    }
+    <a class="button button-secondary pure-button" href="#">@Model.Page</a>
+    @if (Model.Page < Model.TotalPages)
+    {
+        <a class="button button-secondary pure-button" href="@Url.Action("Search", "Home", Model.GetPagination(+1))">
+            @(Model.Page + 1)&nbsp;&raquo;
+        </a>
+    }
+</div>
 
 </div>
