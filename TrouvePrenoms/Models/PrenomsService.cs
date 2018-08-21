@@ -8,27 +8,47 @@ using System.Linq;
 
 namespace TrouvePrenoms.Models
 {
+  [System.Serializable]
   public class PrenomsData
   {
+    public Dictionary<string, Prenom> Boys = new Dictionary<string, Prenom>(50000);
+    public Dictionary<string, Prenom> Girls = new Dictionary<string, Prenom>(50000);
+
+    public int MinYearGlobal;
+    public int MaxYearGlobal;
+  }
+
+  public class PrenomsService
+  {
     // Singleton
-    private static PrenomsData instance;
+    private static PrenomsService instance;
 
     #region Members
 
-    private Dictionary<string, Prenom> boys = new Dictionary<string, Prenom>(50000);
-    private Dictionary<string, Prenom> girls = new Dictionary<string, Prenom>(50000);
-
-    public static int MinYearGlobal { get; private set; }
-    public static int MaxYearGlobal { get; private set; }
+    private PrenomsData data;
 
     #endregion
 
     #region Constructor
 
-    public static void Initialize(string file)
+    public static void Initialize(string file, string cacheFile)
     {
-      instance = new PrenomsData();
-      instance.LoadData(file);
+      instance = new PrenomsService();
+      bool loadedWithCache = false;
+      try
+      {
+        if (File.Exists(cacheFile))
+        {
+          loadedWithCache = instance.LoadCache(cacheFile);
+        }
+      }
+      catch (Exception) { }
+
+      if (loadedWithCache == false || instance.data == null)
+      {
+        instance.LoadData(file);
+        instance.SaveCache(cacheFile);
+      }
     }
 
     private void LoadData(string prenomsFile)
@@ -39,11 +59,9 @@ namespace TrouvePrenoms.Models
         throw new ArgumentException("Configuration file not found! " + prenomsFile);
       }
 
-      boys.Clear();
-      girls.Clear();
-
-      MinYearGlobal = 2999;
-      MaxYearGlobal = -1;
+      data = new PrenomsData();
+      data.MinYearGlobal = 2999;
+      data.MaxYearGlobal = -1;
 
       // Extract data line by line
       int n = 0;
@@ -60,7 +78,7 @@ namespace TrouvePrenoms.Models
 
             if (p != null)
             {
-              var collection = p.Sex == Prenom.BOY ? boys : girls;
+              var collection = p.Sex == Prenom.BOY ? data.Boys : data.Girls;
 
               if (collection.ContainsKey(p.Value) == false)
               {
@@ -99,8 +117,8 @@ namespace TrouvePrenoms.Models
               p.MinYear = first.Key;
               p.MaxYear = last.Key;
 
-              if (p.MinYear > 0) MinYearGlobal = Math.Min(MinYearGlobal, p.MinYear);
-              if (p.MaxYear > 0) MaxYearGlobal = Math.Max(MaxYearGlobal, p.MaxYear);
+              if (p.MinYear > 0) data.MinYearGlobal = Math.Min(MinYearGlobal, p.MinYear);
+              if (p.MaxYear > 0) data.MaxYearGlobal = Math.Max(MaxYearGlobal, p.MaxYear);
             }
           }
 
@@ -109,11 +127,11 @@ namespace TrouvePrenoms.Models
       }
 
       // Sort by key
-      foreach (var g in boys.Values)
+      foreach (var g in data.Boys.Values)
       {
         g.Counts = g.Counts.OrderBy(key => key.Key).ToDictionary((keyItem) => keyItem.Key, (valueItem) => valueItem.Value);
       }
-      foreach (var f in girls.Values)
+      foreach (var f in data.Girls.Values)
       {
         f.Counts = f.Counts.OrderBy(key => key.Key).ToDictionary((keyItem) => keyItem.Key, (valueItem) => valueItem.Value);
       }
@@ -161,7 +179,7 @@ namespace TrouvePrenoms.Models
     {
       if (instance == null) return null;
 
-      var collection = sex == Prenom.BOY ? instance.boys : instance.girls;
+      var collection = sex == Prenom.BOY ? instance.data.Boys : instance.data.Girls;
 
       if (predicate == null)
       {
@@ -177,7 +195,7 @@ namespace TrouvePrenoms.Models
     {
       if (instance == null) return null;
 
-      var collection = instance.boys.Values.Union(instance.girls.Values);
+      var collection = instance.data.Boys.Values.Union(instance.data.Girls.Values);
 
       if (predicate == null)
       {
@@ -193,9 +211,42 @@ namespace TrouvePrenoms.Models
     {
       if (instance == null) return null;
 
-      return instance.boys.Keys.Union(instance.girls.Keys).ToArray();
+      return instance.data.Boys.Keys.Union(instance.data.Girls.Keys).ToArray();
     }
 
     #endregion
+
+    #region Serialization & caching
+
+    private bool LoadCache(string file)
+    {
+      // Disable caching here
+      return false;
+
+      if (File.Exists(file) == false) return false;
+      try
+      {
+        var binData = File.ReadAllBytes(file);
+        data = (PrenomsData)Serializer.DeSerialize(binData);
+
+        return true;
+      }
+      catch (Exception) { }
+      return false;
+    }
+
+    private void SaveCache(string file)
+    {
+      try
+      {
+        var binData = Serializer.Serialize(data);
+        File.WriteAllBytes(file, binData);
+      }
+      catch (Exception) { }
+    }
+    #endregion
+
+    public static int MinYearGlobal { get { return instance.data.MinYearGlobal; } }
+    public static int MaxYearGlobal { get { return instance.data.MaxYearGlobal; } }
   }
 }

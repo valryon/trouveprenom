@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace TrouvePrenoms.Models
 {
+  [System.Serializable]
   public class Prenom
   {
     public const int BOY = 1;

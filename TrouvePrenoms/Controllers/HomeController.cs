@@ -53,13 +53,13 @@ namespace TrouvePrenoms.Controllers
       var list = new List<Prenom>();
       if (sex != Prenom.GIRL)
       {
-        var g = PrenomsData.Get(Prenom.BOY, predicate);
+        var g = PrenomsService.Get(Prenom.BOY, predicate);
         totalCount += g.Count();
         list.AddRange(g);
       }
       if (sex != Prenom.BOY)
       {
-        var g = PrenomsData.Get(Prenom.GIRL, predicate);
+        var g = PrenomsService.Get(Prenom.GIRL, predicate);
         totalCount += g.Count();
         list.AddRange(g);
       }
@@ -81,8 +81,8 @@ namespace TrouvePrenoms.Controllers
       int dateAsSeed = Int32.Parse(date.ToString(PrenomsViewModel.DATE_FORMAT));
       Random r = new Random(dateAsSeed);
 
-      int minYear = PrenomsData.MinYearGlobal;
-      int maxYear = PrenomsData.MaxYearGlobal;
+      int minYear = PrenomsService.MinYearGlobal;
+      int maxYear = PrenomsService.MaxYearGlobal;
       int minOcc = Criteria.MIN_COUNT_THRESHOLD;
       int maxOcc = -1;
 
@@ -158,8 +158,8 @@ namespace TrouvePrenoms.Controllers
       };
 
       // Pick n girls & n boys
-      vm.Boys = PrenomsData.Get(Prenom.BOY, predicate).OrderBy(p => r.NextDouble()).Take(PrenomsViewModel.PRENOMS_COUNT).ToArray();
-      vm.Girls = PrenomsData.Get(Prenom.GIRL, predicate).OrderBy(p => r.NextDouble()).Take(PrenomsViewModel.PRENOMS_COUNT).ToArray();
+      vm.Boys = PrenomsService.Get(Prenom.BOY, predicate).OrderBy(p => r.NextDouble()).Take(PrenomsViewModel.PRENOMS_COUNT).ToArray();
+      vm.Girls = PrenomsService.Get(Prenom.GIRL, predicate).OrderBy(p => r.NextDouble()).Take(PrenomsViewModel.PRENOMS_COUNT).ToArray();
 
       return vm;
     }
@@ -178,7 +178,7 @@ namespace TrouvePrenoms.Controllers
           return p.Value.MinLevenshteinDistance(name) <= 2;
         };
 
-        var t = PrenomsData.Get(pre);
+        var t = PrenomsService.Get(pre);
         vm.Results = t.OrderBy(p => p.Value.Split("-").Length).ThenBy(p => p.Value.MinLevenshteinDistance(name)).ThenByDescending(p => p.TotalCount).Take(10).ToArray();
       }
       else
