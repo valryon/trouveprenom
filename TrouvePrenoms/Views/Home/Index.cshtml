@@ -25,7 +25,9 @@
     <div class="pure-g">
         @foreach (var g in Model.Boys)
         {
-            Html.RenderPartial("_PrenomWidget", g);
+            <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
+                @Html.Partial("_PrenomWidget", g)
+            </div>
         }
     </div>
 </div>
@@ -34,7 +36,9 @@
     <div class="pure-g">
         @foreach (var f in Model.Girls)
         {
-            Html.RenderPartial("_PrenomWidget", f);
+            <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2">
+                @Html.Partial("_PrenomWidget", f)
+            </div>
         }
     </div>
 </div>

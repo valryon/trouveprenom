@@ -7,7 +7,7 @@
 <div class="content">
     <form class="pure-form" action="@Url.Action("Name", "Home")" method="get">
         <fieldset>
-            <legend>Entrez un prénom pour avoir ses stats et les prénoms similaires</legend>
+            <legend>Entrez un prénom pour avoir ses statistiques et les prénoms similaires (orthographe similaire, féminin, etc).</legend>
             <input type="text" name="search" value="@Model.Search" placeholder="Jean-Michel..." />
             <button type="submit" class="pure-button pure-button-primary">Rechercher</button>
         </fieldset>
@@ -18,7 +18,9 @@
     <div class="pure-g">
         @foreach (var g in Model.Results)
         {
-            Html.RenderPartial("_PrenomWidget", g);
+            <div class="pure-u-1 pure-u-md-1-1 pure-u-lg-1-1">
+                @Html.Partial("_PrenomWidget", g)
+            </div>
         }
     </div>
 

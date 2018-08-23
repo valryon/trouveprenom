@@ -50,12 +50,14 @@
 <div class="content">
     <h3>Résultats - @Model.Results.Length prénom@(Model.Results.Length > 1 ? "s" : "") (@Model.TotalCount résultats en tout) </h3>
     <p>
-        Tri par nombre d'occurences décroissants sur la période indiquée.
+        Tri par nombre d'occurences décroissants sur la période indiquée. Cliquez sur un prénom pour avoir un détail plus visible.
     </p>
     <div class="pure-g">
         @foreach (var g in Model.Results)
         {
-            Html.RenderPartial("_PrenomWidget", g);
+            <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+                @Html.Partial("_PrenomWidget", g)
+            </div>
         }
     </div>
 </div>
