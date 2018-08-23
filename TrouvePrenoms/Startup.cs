@@ -63,7 +63,7 @@ namespace TrouvePrenoms
       });
 
       // Load data once on startup
-      string dataFile = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "nat2016.txt");
+      string dataFile = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "nat2017.txt");
       string cacheFile = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "cache.bin");
       PrenomsService.Initialize(dataFile, cacheFile);
     }
