@@ -49,4 +49,4 @@ build
 
 PublishProfiles
 
-cache.bin
+cache*.bin
