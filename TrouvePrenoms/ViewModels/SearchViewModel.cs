@@ -23,7 +23,7 @@ namespace TrouvePrenoms.ViewModels
       return new
       {
         minYear = Criteria.MinYear,
-        maxYear = Criteria.MinYear,
+        maxYear = Criteria.MaxYear,
         minOccurences = Criteria.MinOccurences,
         maxOccurences = Criteria.MaxOccurences,
         sex = Sex,
