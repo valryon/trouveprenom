@@ -129,8 +129,8 @@ namespace TrouvePrenoms.Controllers
           break;
 
         // Randoms
-        case 9:
         case 8:
+        case 9:
           minYear = r.Next(minYear, maxYear - 50);
           maxYear = r.Next(minYear, maxYear);
           minOcc = r.Next(10/(maxYear - minYear), 500/(maxYear - minYear));
