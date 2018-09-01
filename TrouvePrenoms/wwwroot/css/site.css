@@ -1,5 +1,5 @@
 ﻿a.prenom {
-    font-size: 22px;
+    font-size: 20px;
 }
 a.boy {
     color: #008ed4;
@@ -12,7 +12,24 @@ a.girl {
     text-align: right;
 }
 
+.occurences-text {
+    font-size: 15px;
+    vertical-align: middle;
+}
+
 .widget {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.pagination {
+    text-align: center;
+}
+
+.pagination-left {
+    text-align: right;
+}
+
+.pagination-right {
+    text-align: left;
 }
