@@ -150,7 +150,7 @@ namespace TrouvePrenoms.Models
     {
       Prenom p = new Prenom();
 
-      var data = line.Split('\t');
+      var data = line.Split(';');
 
       p.Sex = Int32.Parse(data[0]);
       p.Value = data[1];
