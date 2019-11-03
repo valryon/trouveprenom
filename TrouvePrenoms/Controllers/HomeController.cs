@@ -27,7 +27,7 @@ namespace TrouvePrenoms.Controllers
 
         ViewData["title"] = "Les prénoms du " + vm.DateString;
 
-        return View("Index",vm);
+        return View("Index", vm);
       }
       catch (Exception)
       {
@@ -71,7 +71,7 @@ namespace TrouvePrenoms.Controllers
       string sexString = "";
       if (sex == Prenom.BOY) sexString = "masculins";
       if (sex == Prenom.GIRL) sexString = "féminins";
-      ViewData["title"] = "Les prénoms "+ sexString + " de " + vm.Criteria.MinYear +" à "+ vm.Criteria.MaxYear;
+      ViewData["title"] = "Les prénoms " + sexString + " de " + vm.Criteria.MinYear + " à " + vm.Criteria.MaxYear;
 
       return View(vm);
     }
@@ -133,7 +133,7 @@ namespace TrouvePrenoms.Controllers
         case 9:
           minYear = r.Next(minYear, maxYear - 50);
           maxYear = r.Next(minYear, maxYear);
-          minOcc = r.Next(10/(maxYear - minYear), 500/(maxYear - minYear));
+          minOcc = r.Next(10 / (maxYear - minYear), 500 / (maxYear - minYear));
           break;
 
         default:
@@ -164,7 +164,7 @@ namespace TrouvePrenoms.Controllers
       return vm;
     }
 
-    public IActionResult Name(string name, string search =null)
+    public IActionResult Name(string name, string search = null)
     {
       if (string.IsNullOrEmpty(search) == false) name = search;
 
@@ -207,6 +207,11 @@ namespace TrouvePrenoms.Controllers
     public IActionResult Error()
     {
       return RedirectToAction("Index");
+    }
+
+    public IActionResult About()
+    {
+      return View(new AboutViewModel());
     }
   }
 }

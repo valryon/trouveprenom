@@ -55,8 +55,11 @@
                         <li class="pure-menu-item @(Model.SelectedMenu == 2 ? "pure-menu-selected" : "")">
                             <a class="pure-menu-link" href="@Url.Action("Search","Home")">Recherche</a>
                         </li>
-                        <li class="pure-menu-item @(Model.SelectedMenu == 3 ? "pure-menu-selected" : "")">
+                        <li class="pure-menu-item @(Model.SelectedMenu == 3 ? " pure-menu-selected" : "" )">
                             <a class="pure-menu-link" href="@Url.Action("Name","Home")">Mon prénom</a>
+                        </li>
+                        <li class="pure-menu-item @(Model.SelectedMenu == 4 ? "pure-menu-selected" : "")">
+                            <a class="pure-menu-link" href="@Url.Action("About","Home")">A Propos</a>
                         </li>
                     </ul>
                 </div>

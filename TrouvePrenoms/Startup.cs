@@ -56,10 +56,13 @@ namespace TrouvePrenoms
         routes.MapRoute("search", "search",
             defaults: new { controller = "Home", action = "Search" });
 
+        routes.MapRoute("about", "about",
+            defaults: new { controller = "Home", action = "About" });
+
 
         routes.MapRoute(
-                  name: "default",
-                  template: "{controller=Home}/{action=Index}/{id?}");
+                name: "default",
+                template: "{controller=Home}/{action=Index}/{id?}");
       });
 
       // Load data once on startup
