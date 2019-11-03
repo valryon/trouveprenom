@@ -1,15 +1,13 @@
-FROM microsoft/aspnetcore-build:2.0.3-stretch AS build-env
-
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
 WORKDIR /app
+
+COPY *.csproj ./ 
+RUN dotnet restore
+
 COPY . ./
-RUN dotnet build TrouvePrenoms.csproj
-RUN dotnet publish TrouvePrenoms.csproj -c Release -r linux-x64 -o out
+RUN dotnet publish -c Release -o out
 
-FROM microsoft/aspnetcore:2.0.3-stretch
-RUN mkdir /app
-COPY --from=build-env /app/out /app
-
-ENV ASPNETCORE_URLS=http://+:5001
-EXPOSE 5001
-
-ENTRYPOINT ["/app/TrouvePrenoms"]
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "TrouvePrenoms.dll"]

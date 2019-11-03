@@ -19,10 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\nat2016.txt">
+    <None Include="wwwroot\data\nat2016.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\nat2017.txt">
+    <None Include="wwwroot\data\nat2017.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\data\nat2018.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

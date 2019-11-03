@@ -1,11 +1,7 @@
 ﻿// Copyright © 2018 Damien Mayance
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.md', which is part of this source code package
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -43,7 +39,7 @@ namespace TrouvePrenoms
         app.UseExceptionHandler("/Home/Error");
       }
 
-      app.UseStaticFiles();
+      app.UseStaticFiles(); // wwwroot
 
       app.UseMvc(routes =>
       {
@@ -66,8 +62,8 @@ namespace TrouvePrenoms
       });
 
       // Load data once on startup
-      string dataFile = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "nat2018.csv");
-      string cacheFile = Path.Combine(hostingEnvironment.ContentRootPath, "Data", "cache2018.bin");
+      var dataFile = Path.Combine(hostingEnvironment.WebRootPath, "data", "nat2018.csv");
+      string cacheFile = Path.Combine(hostingEnvironment.ContentRootPath, ".", "cache2018.bin");
       PrenomsService.Initialize(dataFile, cacheFile);
     }
   }
